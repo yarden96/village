@@ -1,0 +1,75 @@
+.laundry-right {
+  height: 100%;
+  width: 70%;
+  position: fixed;
+  z-index: 1;
+  overflow: hidden;
+  right: 2%;
+}
+
+.laundry-left {
+  height: 100%;
+  width: 30%;
+  position: fixed;
+  z-index: 1;
+  overflow: hidden;
+  left: 0;
+}
+
+.laundry-right-right {
+  height: 100%;
+  width: 34%;
+  position: fixed;
+  z-index: 1;
+  overflow: hidden;
+  right: 2%;
+}
+.laundry-right-left {
+  height: 100%;
+  width: 33%;
+  position: fixed;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.link {
+  outline: none;
+  text-decoration-line: none;
+  text-decoration-color: #F0F0F0;
+}
+
+.input {
+  padding: 12px 12px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-family: cursive;
+  outline: none
+}
+
+form {
+  display: inline-grid;
+  top: 1vh;
+  width: min-content;
+}
+
+.input-right {
+  float: right;
+  width: 49%;
+}
+
+.input-left {
+  float: left;
+  width: 50%;
+}
+
+.new-schdule-btn {
+  border: 2px solid #ff0000 !important;
+  background: #ff0000;
+}
+
+.error-message {
+  font-size: x-small;
+}
