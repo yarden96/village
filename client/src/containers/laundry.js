@@ -114,12 +114,19 @@ class Laundry extends Component {
 
   deleteSchedule = async () => {
     await this.props.deleteSchedule(this.state._id);
-    if (this.state.machineName === this.state.laundry || this.state.machineName === this.state.dryer) {
-      this.props.getSchedule(this.state.machineName, this.state.machineType === 'woshing');
+    
+    this.props.getSchedule(this.state.machineName, this.state.machineType === 'woshing');
+    if ( this.state.machineType === 'woshing') {
+      this.setState({
+      ...this.initState,
+        laundry: this.state.machineName
+      })
+    } else {
+      this.setState({
+      ...this.initState,
+        dryer: this.state.machineName
+      })
     }
-    this.setState({
-      ...this.initState
-    })
   }
 
   renderDatesOption = () => {
