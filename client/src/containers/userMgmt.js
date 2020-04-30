@@ -24,11 +24,11 @@ class UsersManagement extends Component {
         users: ''
     }
 
-    componentWillMount = () => {
+    UNSAFE_componentWillMount = () => {
         this.props.getUsers();
     }
 
-    componentWillReceiveProps = (nextProps) => {
+    UNSAFE_componentWillReceiveProps = (nextProps) => {
         if((nextProps.newUser && nextProps.newUser.seccess) || this.state.edit) {
             this.setState({
                 show: false,
@@ -168,9 +168,9 @@ class UsersManagement extends Component {
                                     onChange={this.handleChange}/>
                                  :null
                             }
-                            <select name="role" className="input" onChange={this.handleChange}>
-                            <option value="User" selected={this.state.role === 'user'}>User</option>
-                            <option value="Admin" selected={this.state.role === 'admin'}>Admin</option>
+                            <select name="role" defaultValue="user" className="input" onChange={this.handleChange}>
+                            <option value="user">User</option>
+                            <option value="admin">Admin</option>
                             </select>
                         </div>    
                         <button type="submit" className="loginInputBtn link">Save</button> 

@@ -21,7 +21,7 @@ class Login extends Component {
         this.setState({password:event.target.value})
     }
 
-    componentWillReceiveProps(nextProps){
+    UNSAFE_componentWillReceiveProps(nextProps){
         if(nextProps.user.login && nextProps.user.login.isAuth){
             this.props.history.push('/');
         }

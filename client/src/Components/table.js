@@ -16,7 +16,7 @@ class Table extends Component {
                   )
                }
 
-               const { id, name, lastname, role, numberOfDuties } = row //destructuring
+               const { id, name, lastname, role, numberOfDuties } = row
                return (
                   <tr onClick={()=>this.props.clickRow(row)} key={id}>
                      <td>{id}</td>

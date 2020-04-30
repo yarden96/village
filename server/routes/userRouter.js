@@ -4,7 +4,7 @@ const { auth } = require('../middleware/auth');
 
 const router = express.Router();
 
-router.post('/api/user/register', (req, res) => {
+router.post('/register', (req, res) => {
     const user = new User(req.body.user);
 
     user.save((err, doc) => {
@@ -13,10 +13,12 @@ router.post('/api/user/register', (req, res) => {
     })
 })
 
-router.post('/api/user/login', (req, res) => {
+router.post('/login', (req, res) => {
     User.findOne({'id': req.body.id}, (err, user) => {
         if (!user) return res.json({isAuth:false, message:'Auth failed, user not found'});
 
+        console.log("user", user.password);
+        
         user.comparePassword(req.body.password, (err, isMatch) => {
             if (err) return res.json({isAuth:false, message:'Auth failed, user not found'});
             if(!isMatch) return res.json({
@@ -39,7 +41,7 @@ router.post('/api/user/login', (req, res) => {
     })
 })
 
-router.get('/api/user/logout', auth, (req, res) => {
+router.get('/logout', auth, (req, res) => {
     req.user.deleteToken(req.token, (err, user) => {
         if(err) return res.statusCode(400).send(err);
         res.sendStatus(200);
@@ -47,7 +49,7 @@ router.get('/api/user/logout', auth, (req, res) => {
 
 })
 
-router.post('/api/user/updateUser', (req, res) => {
+router.post('/updateUser', (req, res) => {
     let user = req.body;
     User.updateOne({"id": user.id},{ $set: { ...user } }, (err, doc) => {
         if(err) return res.json({error:err});
@@ -55,7 +57,7 @@ router.post('/api/user/updateUser', (req, res) => {
     })
 })
 
-router.get('/api/user/isAuth', auth, (req, res) => {
+router.get('/isAuth', auth, (req, res) => {
     res.json({ 
         isAuth: true,
         id: req.user._id,
@@ -64,14 +66,14 @@ router.get('/api/user/isAuth', auth, (req, res) => {
      })
 })
 
-router.get('/api/user/getUsers', (req, res) => {
+router.get('/getUsers', (req, res) => {
     User.find((err, docs) => {
         if(err) return res.json({error:err});
         res.json(docs)
     })
 })
 
-router.get('/api/user/getUser', (req, res) => {
+router.get('/getUser', (req, res) => {
     let query = req.query.search;
     if(isNaN(query)) {
         User.find(({ $or: [ { "name": {'$regex': query} }, 
@@ -96,7 +98,7 @@ router.get('/api/user/getUser', (req, res) => {
     }    
 })
 
-router.delete('/api/user/deleteUser', (req, res) => {
+router.delete('/deleteUser', (req, res) => {
     User.deleteOne({id: req.query.id}, (err) => {
         if(err) return res.json({seccess: false, error: err});
         res.json({seccess: true})

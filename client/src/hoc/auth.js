@@ -10,11 +10,11 @@ export default function(ComposedClass, accessable){
             loading:true
         }
 
-        componentWillMount = () => {
+        UNSAFE_componentWillMount = () => {
             this.props.auth();
         }
 
-        componentWillReceiveProps(nextProps){
+        UNSAFE_componentWillReceiveProps(nextProps){
             if((nextProps.user.login && nextProps.user.login.isAuth) || accessable){
                 this.setState({loading:false})
             }

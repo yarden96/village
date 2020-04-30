@@ -4,7 +4,15 @@ const { Machine } = require('../models/machine');
 
 const validateSchedule = (req, res, next) =>{
     let schedule = req.body.schedule;
-    
+    schedule.startTime = convertTime(schedule.startTime);
+    schedule.endTime = convertTime(schedule.endTime) ;
+
+    if (schedule.startTime < 1 || schedule.startTime > 25 || schedule.endTime < 1 || schedule.endTime > 25){
+      return res.json({
+        seccess: false,
+        err: "Invalid time"
+      })  
+    }
     if(!schedule.startTime || !schedule.endTime 
         || !schedule.machineName || !schedule.machineType 
         || !schedule.userName || !schedule.date) {
@@ -28,7 +36,7 @@ const validateSchedule = (req, res, next) =>{
             (err, schedules) => {
                 if (err) return res.json({seccess: false, err: "Error while addning a new schedule"});
                 
-                var collision = _.find(schedules, function (s){
+                let collision = _.find(schedules, function (s){
                     if(schedule._id && s._id == schedule._id) return false;
                     
                     return (s.startTime <= schedule.startTime && s.endTime > schedule.startTime)
@@ -48,6 +56,14 @@ const validateSchedule = (req, res, next) =>{
                 next();
         })
     }) 
+}
+
+const convertTime = (time) => {
+  if(time.toString().includes(':')) {
+    time = time.replace(':', '.');
+  }
+
+  return time
 }
 
 module.exports = { validateSchedule };

@@ -12,11 +12,11 @@ class Header extends Component {
         btnPath:'Login'
     }
 
-    componentWillMount = () => {
+    UNSAFE_componentWillMount = () => {
         this.props.auth();
     }
 
-    componentWillReceiveProps = (nextProps) => {
+    UNSAFE_componentWillReceiveProps = (nextProps) => {
         if(nextProps.user.login && nextProps.user.login.isAuth){
             this.setState({btnVal:'Logout', btnPath:''})
         } else {
